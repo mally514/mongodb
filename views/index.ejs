@@ -1,0 +1,52 @@
+<html>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script type="text/javascript" src="/js/index.js"></script>
+<body>
+	<div class="container">
+		<!-- based on the structure of your messages, determine how to display them -->
+		<% if(messages.validation) { %>
+		     <% for (var x of messages.validation) { %>
+			    <div class="alert alert-danger" role="alert">
+				 <%= x %>
+				</div>
+		     <% } %>
+		 <% } else { %>
+		 	<% if(messages.success) { %>
+			 	<div class="alert alert-danger" role="alert">
+					 <%= messages.success %>
+				</div>
+			<% } %>
+		 <% } %>
+		<h5 style="text-align: center; font-weight: 700; font-size: 30px;">The Dojo Message Board</h5>
+		<form method="post" action="/Post_Message">
+			Name
+			<input type="text" class="form-control" name="name" style="width: 30%"><br>
+			Message
+			<textarea type="text" class="form-control" name="message"></textarea>
+			<br>
+			<button type="submit" class="btn btn-info pull-right">Post messages</button>
+		</form><br>
+		<% for (var list of result_user) {%>
+			<% for (var item of list.posts) {%>
+					<h3>Name:<%= list.name%></h3>
+					<h3>Message: <%= item.message%></h3>	
+					<div class="container">
+						<h5>Name:name</h5>
+						<h5>Message: comment</h5>	
+						<form method="post" action="/Post_Comment">
+								<input type="text" class="form-control" name="id" value="<%= item._id%>" >
+								Name
+								<input type="text" class="form-control" name="name" style="width: 30%"><br>
+								Comment
+								<textarea type="text" class="form-control" name="comment"></textarea>
+								<br>
+								<button type="submit" class="btn btn-info pull-right">Post Comment</button>
+							</form><br>
+						</div>
+			<%}%>
+		<%}%>
+	</div>
+</body>
+</html>
